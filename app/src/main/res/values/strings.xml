@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Contextual</string>
+    <string name="key_hint">e.g Demouser_1234</string>
+    <string name="text_continue">Continue</string>
+    <string name="validation_title">Contextual Demo app</string>
+    <string name="validation_subTitle">Enter your App Key that you have registered on the Contextual Dashboard</string>
+
+</resources>
