@@ -106,8 +106,9 @@ fun AppKeyValidationScreen(
 
         AnimatedVisibility(visible = uiState.value is UIState.Response) {
             (uiState.value as? UIState.Response<AppKeyValidationModel>).let {
-                if (appKey.value.isNotEmpty())
+                if (appKey.value.isNotEmpty()) {
                     navigator.navigate(Screens.Home.route.replace("{appKey}", appKey.value))
+                }
             }
         }
 

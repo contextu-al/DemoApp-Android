@@ -1,5 +1,8 @@
 package com.app.contextualdemo.ui.screen.home
 
+import android.app.Application
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.app.contextualdemo.R
@@ -24,6 +28,9 @@ import com.app.contextualdemo.ui.navigation.AppNavHost
 import com.app.contextualdemo.ui.navigation.AppState
 import com.app.contextualdemo.ui.screen.LocalNavigator
 import com.app.contextualdemo.ui.screen.Screens
+import com.contextu.al.Contextual
+import com.contextu.al.core.CtxEventObserver
+import java.util.UUID
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -32,7 +39,7 @@ fun HomeScreen(
     appKey: String
 ) {
     val navigator = LocalNavigator.current
-
+    initContextualSdk(appKey, LocalContext.current.applicationContext as Application)
     Scaffold(
         bottomBar = {
             AppBottomNavigation(
@@ -77,6 +84,21 @@ fun HomeScreen(
                 onShowMessage = { message -> appState.showMessage(message) },
             )
         }
-
     }
+}
+
+
+private fun initContextualSdk(
+    appKey: String,
+    application: Application
+) {
+    Contextual.init(application, appKey, object : CtxEventObserver {
+        override fun onInstallRegistered(installId: UUID, context: Context) {
+            Toast.makeText(application, "Contextual sdk initiated", Toast.LENGTH_LONG).show()
+        }
+
+        override fun onInstallRegisterError(errorMsg: String) {
+            Toast.makeText(application, errorMsg, Toast.LENGTH_LONG).show()
+        }
+    })
 }
