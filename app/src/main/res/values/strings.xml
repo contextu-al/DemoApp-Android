@@ -4,5 +4,6 @@
     <string name="text_continue">Continue</string>
     <string name="validation_title">Contextual Demo app</string>
     <string name="validation_subTitle">Enter your App Key that you have registered on the Contextual Dashboard</string>
+    <string name="change_app_key">Change app key</string>
 
 </resources>
