@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.contextualdemo.R
 import com.app.contextualdemo.domain.model.AppKeyValidationModel
 import com.app.contextualdemo.extension.getAppString
@@ -46,7 +47,7 @@ fun AppKeyValidationScreen(
 
     val navigator = LocalNavigator.current
 
-    val uiState = appValidationViewModel.uiState.collectAsState()
+    val uiState = appValidationViewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
@@ -108,7 +109,7 @@ fun AppKeyValidationScreen(
             (uiState.value as? UIState.Response<AppKeyValidationModel>).let {
                 if (appKey.value.isNotEmpty()) {
                     navigator.navigate(Screens.Home.route.replace("{appKey}", appKey.value)) {
-                        popUpTo(Screens.AppKeyValidation.route) {
+                        popUpTo(0) {
                             inclusive = true
                         }
                     }
