@@ -3,7 +3,6 @@ package com.app.contextualdemo.ui.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.app.contextualdemo.ui.screen.screenone.ScreenOneRoute
 import com.app.contextualdemo.ui.screen.screentwo.ScreenTwoRoute
 
 object ScreenTwoDestination : AppNavigationDestination {

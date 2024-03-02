@@ -19,7 +19,7 @@ fun AppNavHost(
         navController = navController,
         startDestination = startDestination.route
     ) {
-        screenOneGraph(onNavigateToDestination)
+        homeScreenGraph(onNavigateToDestination)
         screenTwoGraph(onNavigateToDestination)
     }
 }

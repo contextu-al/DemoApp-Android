@@ -9,13 +9,13 @@ enum class TopLevelDestination(
     @DrawableRes val iconResourceId: Int,
     val title: String
 ) : AppNavigationDestination {
-    ScreenOne(
-        route = ScreenOneDestination.route,
-        destination = ScreenOneDestination.destination,
-        iconResourceId = R.drawable.ic_trending,
-        title = "Screen 1"
+    HomeScreen(
+        route = HomeScreenDestination.route,
+        destination = HomeScreenDestination.destination,
+        iconResourceId = R.drawable.ic_home,
+        title = "Home"
     ),
-    ScreenTwo(
+    GuideBlockScreen(
         route = ScreenTwoDestination.route,
         destination = ScreenTwoDestination.destination,
         iconResourceId = R.drawable.ic_trending,

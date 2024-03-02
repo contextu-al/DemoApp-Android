@@ -25,7 +25,7 @@ fun rememberAppState(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
-    startDestination: TopLevelDestination = TopLevelDestination.ScreenOne
+    startDestination: TopLevelDestination = TopLevelDestination.HomeScreen
 ) = remember(
     snackbarHostState,
     coroutineScope,

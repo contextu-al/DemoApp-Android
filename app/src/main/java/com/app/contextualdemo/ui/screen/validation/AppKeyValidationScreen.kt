@@ -16,7 +16,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -108,7 +107,7 @@ fun AppKeyValidationScreen(
         AnimatedVisibility(visible = uiState.value is UIState.Response) {
             (uiState.value as? UIState.Response<AppKeyValidationModel>).let {
                 if (appKey.value.isNotEmpty()) {
-                    navigator.navigate(Screens.Home.route.replace("{appKey}", appKey.value)) {
+                    navigator.navigate(Screens.Main.route.replace("{appKey}", appKey.value)) {
                         popUpTo(0) {
                             inclusive = true
                         }

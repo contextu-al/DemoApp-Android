@@ -16,7 +16,7 @@ import androidx.navigation.navArgument
 import com.app.contextualdemo.ui.navigation.rememberAppState
 import com.app.contextualdemo.ui.screen.LocalNavigator
 import com.app.contextualdemo.ui.screen.Screens
-import com.app.contextualdemo.ui.screen.home.HomeScreen
+import com.app.contextualdemo.ui.screen.main.MainScreen
 import com.app.contextualdemo.ui.screen.settings.SettingsScreen
 import com.app.contextualdemo.ui.screen.validation.AppKeyValidationScreen
 import com.app.contextualdemo.ui.theme.ContextualTheme
@@ -39,16 +39,16 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = LocalNavigator.current,
-                            startDestination = Screens.AppKeyValidation.route,
+                            startDestination = Screens.Main.route,
                             modifier = Modifier.padding(paddingValues = paddingValues)
                         ) {
                             composable(
-                                Screens.Home.route,
+                                Screens.Main.route,
                                 arguments = listOf(navArgument("appKey") {
                                     type = NavType.StringType
                                 })
                             ) { backStackEntry ->
-                                HomeScreen(
+                                MainScreen(
                                     rememberAppState(),
                                     backStackEntry.arguments?.getString("appKey") ?: ""
                                 )
