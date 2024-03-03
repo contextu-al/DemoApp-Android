@@ -1,4 +1,4 @@
-package com.app.contextualdemo.ui.screen.screentwo
+package com.app.contextualdemo.ui.screen.codeblock
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,21 +11,21 @@ import androidx.compose.ui.Modifier
 import com.app.contextualdemo.ui.navigation.AppNavigationDestination
 
 @Composable
-internal fun ScreenTwoRoute(
+internal fun CodeBlockRoute(
     onClick: (AppNavigationDestination, String) -> Unit,
 ) {
-    ScreenTwo()
+    CodeBlockScreen()
 }
 
 @Composable
-fun ScreenTwo() {
+fun CodeBlockScreen() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Screen two",
+            text = "Tab 3 content",
             style = MaterialTheme.typography.headlineSmall
         )
     }

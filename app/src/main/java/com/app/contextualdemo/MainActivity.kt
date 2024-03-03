@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = LocalNavigator.current,
-                            startDestination = Screens.Main.route,
+                            startDestination = Screens.AppKeyValidation.route,
                             modifier = Modifier.padding(paddingValues = paddingValues)
                         ) {
                             composable(

@@ -20,6 +20,7 @@ fun AppNavHost(
         startDestination = startDestination.route
     ) {
         homeScreenGraph(onNavigateToDestination)
-        screenTwoGraph(onNavigateToDestination)
+        screenGuideBlock(onNavigateToDestination)
+        screenCodeBlock(onNavigateToDestination)
     }
 }

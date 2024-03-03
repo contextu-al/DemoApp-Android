@@ -16,9 +16,15 @@ enum class TopLevelDestination(
         title = "Home"
     ),
     GuideBlockScreen(
-        route = ScreenTwoDestination.route,
-        destination = ScreenTwoDestination.destination,
-        iconResourceId = R.drawable.ic_trending,
-        title = "Screen 2"
+        route = GuideBlockDestination.route,
+        destination = GuideBlockDestination.destination,
+        iconResourceId = R.drawable.ic_guide_block,
+        title = "Guide Block"
+    ),
+    CodeBlockScreen(
+        route = CodeBlockDestination.route,
+        destination = CodeBlockDestination.destination,
+        iconResourceId = R.drawable.ic_code,
+        title = "Code Block"
     ),
 }

@@ -1,6 +1,6 @@
 package com.app.contextualdemo.ui.screen.draganddrop
 
-import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +13,6 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.contextu.al.debug.Log
 
 internal val LocalDragTargetInfo = compositionLocalOf { DragTargetInfo() }
 
@@ -57,7 +56,7 @@ fun <T> DragTarget(
             currentPosition = it.localToWindow(Offset.Zero)
         }
         .pointerInput(Unit) {
-            detectDragGesturesAfterLongPress(onDragStart = {
+            detectDragGestures(onDragStart = {
                 viewModel.startDragging()
                 currentState.dataToDrop = dataToDrop
                 currentState.isDragging = true
@@ -79,6 +78,7 @@ fun <T> DragTarget(
                 viewModel.stopDragging()
                 currentState.dragOffset = Offset.Zero
                 currentState.isDragging = false
+                currentState.isDragSuccess = false
                 if (currentState.isDragSuccess.not()) {
                     offsetX = 0f
                     offsetY = 0f
@@ -102,15 +102,12 @@ fun <T> DropItem(
         mutableStateOf(false)
     }
 
-    Box(modifier = modifier.onGloballyPositioned {
+    Box(modifier = modifier
+        .onGloballyPositioned {
         it.boundsInWindow().let { rect ->
             val offset = dragPosition + dragOffset
-
-            isCurrentDropTarget = offset.x >= rect.left && offset.x < rect.right && offset.y >= rect.top && offset.y < rect.bottom
+            isCurrentDropTarget = (offset.y - rect.topRight.y) <= 100 && offset.y > 0
             dragInfo.isDragSuccess = isCurrentDropTarget
-            if (isCurrentDropTarget) {
-                Log.e("---------->", "--------->"+rect)
-            }
         }
     }) {
         val data =

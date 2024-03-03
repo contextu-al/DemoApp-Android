@@ -1,7 +1,6 @@
 package com.app.contextualdemo.ui.screen.draganddrop
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -18,26 +17,23 @@ class DragViewModel @Inject constructor(): ViewModel() {
     var items by mutableStateOf(emptyList<SquareBlock>())
         private set
 
-    var addedBlocks = mutableStateListOf<SquareBlock>()
-        private set
-
     init {
 
         items = listOf(
             SquareBlock(),
             SquareBlock(),
             SquareBlock(),
-            SquareBlock(true),
+            SquareBlock(true, animPosition = 6, text = "Aha!"),
             SquareBlock(),
-            SquareBlock(true),
-            SquareBlock(true),
-            SquareBlock(true),
+            SquareBlock(true, animPosition = 3),
+            SquareBlock(true, animPosition = 4),
+            SquareBlock(true, animPosition = 5),
             SquareBlock(),
-            SquareBlock(true),
+            SquareBlock(true, animPosition = 2),
             SquareBlock(),
             SquareBlock(),
-            SquareBlock(true),
-            SquareBlock(true),
+            SquareBlock(true,  animPosition = 0),
+            SquareBlock(true, animPosition = 1),
             SquareBlock(),
             SquareBlock(),
         )
