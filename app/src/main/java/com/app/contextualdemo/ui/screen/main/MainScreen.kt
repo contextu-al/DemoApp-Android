@@ -98,7 +98,6 @@ private fun initContextualSdk(
         }
 
         override fun onInstallRegisterError(errorMsg: String) {
-            Toast.makeText(application, errorMsg, Toast.LENGTH_LONG).show()
         }
     })
 }

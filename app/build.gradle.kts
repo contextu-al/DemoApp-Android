@@ -48,6 +48,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -93,4 +94,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
+
+    implementation("com.github.GuideBlocks-org:Android-GuideBlocks:0.0.17")
+    implementation("com.google.android.gms:play-services-vision:20.1.3")
 }

@@ -1,5 +1,9 @@
 package com.app.contextualdemo.ui.screen.validation
 
+import android.app.Activity
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -21,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +37,7 @@ import com.app.contextualdemo.R
 import com.app.contextualdemo.domain.model.AppKeyValidationModel
 import com.app.contextualdemo.extension.getAppString
 import com.app.contextualdemo.ui.UIState
+import com.app.contextualdemo.ui.qrcode.QrCodeActivity
 import com.app.contextualdemo.ui.screen.LocalNavigator
 import com.app.contextualdemo.ui.screen.Screens
 
@@ -43,10 +50,19 @@ fun AppKeyValidationScreen(
     val appKey = remember {
         mutableStateOf("")
     }
-
+    val context = LocalContext.current
     val navigator = LocalNavigator.current
-
     val uiState = appValidationViewModel.uiState.collectAsStateWithLifecycle()
+
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data ?: return@rememberLauncherForActivityResult
+            intent.getStringExtra("data")?.let {
+                appKey.value = it
+            }
+        }
+    }
+
 
     Column(
         modifier = modifier
@@ -123,6 +139,12 @@ fun AppKeyValidationScreen(
                     color = Color.Red
                 )
             }
+        }
+        
+        Button(onClick = {
+            launcher.launch(Intent(context, QrCodeActivity::class.java))
+        }) {
+            Text(text = "Scan qr code")
         }
     }
 }

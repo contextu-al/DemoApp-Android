@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven ("https://jitpack.io")
         maven ("https://repo.contextu.al/sdk/contextual/" )
     }
 }
@@ -12,6 +13,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven ("https://repo.contextu.al/sdk/contextual/" )
+        maven ("https://jitpack.io")
     }
 }
 

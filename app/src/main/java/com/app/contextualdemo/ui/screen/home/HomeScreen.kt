@@ -1,5 +1,6 @@
 package com.app.contextualdemo.ui.screen.home
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.foundation.background
@@ -31,22 +32,32 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.contextualdemo.R
 import com.app.contextualdemo.domain.model.SquareBlock
 import com.app.contextualdemo.ui.navigation.AppNavigationDestination
+import com.app.contextualdemo.ui.screen.GuideBlock
 import com.app.contextualdemo.ui.screen.draganddrop.DragTarget
 import com.app.contextualdemo.ui.screen.draganddrop.DragViewModel
 import com.app.contextualdemo.ui.screen.draganddrop.DraggableScreen
 import com.app.contextualdemo.ui.screen.draganddrop.DropItem
 import com.app.contextualdemo.ui.screen.draganddrop.LocalDragTargetInfo
+import com.app.contextualdemo.ui.screen.guideblock.GuideBlockViewModel
+import com.contextu.al.Contextual
+import com.contextu.al.confetti.ConfettiGuideBlocks
+import com.contextu.al.data.storage.room.TagManager
+import com.contextu.al.debug.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @Composable
@@ -62,11 +73,13 @@ internal fun HomeScreenRoute(
 
 @Composable
 fun HomeScreen(
-    dragViewModel: DragViewModel = hiltViewModel()
+    dragViewModel: DragViewModel = hiltViewModel(),
+    guideBlockViewModel: GuideBlockViewModel = hiltViewModel()
 ) {
 
     var moved by remember { mutableStateOf(false) }
-
+    val guideBlock = guideBlockViewModel.guideBlockState.collectAsStateWithLifecycle()
+    val content = LocalContext.current
     var pathOffset by remember {
         mutableStateOf(Offset.Zero)
     }
@@ -134,9 +147,13 @@ fun HomeScreen(
 
                                     LaunchedEffect(Unit) {
                                         CoroutineScope(Dispatchers.Main).launch {
-                                            list.forEach {
-                                                pathOffset = it.offset!!
+                                            list.forEachIndexed { index, squareBlock ->
+                                                pathOffset = squareBlock.offset!!
                                                 delay(150)
+                                                if (index == list.size - 1) {
+                                                    guideBlockViewModel.tagNumber("finished", 1)
+                                                    guideBlockViewModel.registerGuideBlock(GuideBlock.confetti)
+                                                }
                                             }
                                         }
                                     }
