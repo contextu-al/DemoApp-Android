@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -69,7 +70,10 @@ fun <T> DragTarget(
             }, onDragEnd = {
                 viewModel.stopDragging()
                 currentState.isDragging = false
-                currentState.dragOffset = Offset.Zero
+                if (currentState.isDragSuccess.not())
+                    currentState.dragOffset = Offset.Zero
+                else
+                    currentState.dragOffset = Offset(offsetX, offsetY)
                 if (currentState.isDragSuccess.not()) {
                     offsetX = 0f
                     offsetY = 0f
@@ -82,6 +86,7 @@ fun <T> DragTarget(
                 if (currentState.isDragSuccess.not()) {
                     offsetX = 0f
                     offsetY = 0f
+                    currentState.dragOffset = Offset.Zero
                 }
             })
         }) {
@@ -106,13 +111,14 @@ fun <T> DropItem(
         .onGloballyPositioned {
         it.boundsInWindow().let { rect ->
             val offset = dragPosition + dragOffset
-            isCurrentDropTarget = (offset.y - rect.topRight.y) <= 100 && offset.y > 0
+            isCurrentDropTarget = (offset.y - rect.topRight.y) <= 100 && offset.y > 0 && offset.x > 0 && (offset.x - rect.topLeft.x) <= 150 && (offset.x - rect.topLeft.x) >= 50 && (offset.x - rect.topLeft.x) >= 0 && (offset.y - rect.topLeft.y) >= 0
             dragInfo.isDragSuccess = isCurrentDropTarget
         }
     }) {
         val data =
             if (isCurrentDropTarget && !dragInfo.isDragging) dragInfo.dataToDrop as T? else null
-        content(isCurrentDropTarget, data)
+        if (dragInfo.isDragging.not())
+            content(isCurrentDropTarget, data)
     }
 }
 

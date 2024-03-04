@@ -1,6 +1,5 @@
 package com.app.contextualdemo.ui.screen.home
 
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.foundation.background
@@ -19,7 +18,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -33,7 +31,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
@@ -139,10 +136,12 @@ fun HomeScreen(
                                         CoroutineScope(Dispatchers.Main).launch {
                                             list.forEach {
                                                 pathOffset = it.offset!!
-                                                delay(700)
+                                                delay(150)
                                             }
                                         }
                                     }
+                                } else if (LocalDragTargetInfo.current.isDragSuccess.not()) {
+                                    moved = false
                                 }
                             }
                         }

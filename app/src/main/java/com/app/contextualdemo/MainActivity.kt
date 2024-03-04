@@ -18,6 +18,7 @@ import com.app.contextualdemo.ui.screen.LocalNavigator
 import com.app.contextualdemo.ui.screen.Screens
 import com.app.contextualdemo.ui.screen.main.MainScreen
 import com.app.contextualdemo.ui.screen.settings.SettingsScreen
+import com.app.contextualdemo.ui.screen.splashscreen.SplashScreen
 import com.app.contextualdemo.ui.screen.validation.AppKeyValidationScreen
 import com.app.contextualdemo.ui.theme.ContextualTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = LocalNavigator.current,
-                            startDestination = Screens.AppKeyValidation.route,
+                            startDestination = Screens.Splash.route,
                             modifier = Modifier.padding(paddingValues = paddingValues)
                         ) {
                             composable(
@@ -58,6 +59,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(Screens.Settings.route) {
                                 SettingsScreen()
+                            }
+                            composable(Screens.Splash.route) {
+                                SplashScreen()
                             }
                         }
                     }
